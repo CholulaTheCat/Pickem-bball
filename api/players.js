@@ -1,10 +1,9 @@
 import { addPlayer, removePlayer, getPlayers } from '../lib/store.js';
-import { checkPasscode, isLocked, readBody, send, validName } from '../lib/http.js';
+import { isLocked, readBody, send, validName } from '../lib/http.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
-  const { passcode, action, name } = readBody(req);
-  if (!checkPasscode(passcode)) return send(res, 401, { error: 'Wrong passcode' });
+  const { action, name } = readBody(req);
   if (!validName(name)) return send(res, 400, { error: 'Names: 1-24 letters, numbers, spaces' });
   const clean = name.trim();
 
