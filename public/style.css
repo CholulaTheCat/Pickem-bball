@@ -14,6 +14,9 @@
   --lost: #b42318;
   --lost-bg: #fde8e6;
   --neutral-bg: #eceef1;
+  --bar-over: #1a7f37;
+  --bar-under: #1f5fbf;
+  --bar-none: #8a919c;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -33,6 +36,9 @@
     --lost: #ff7a6b;
     --lost-bg: #3a1a17;
     --neutral-bg: #2a2e36;
+    --bar-over: #3fae5e;
+    --bar-under: #5a8ee6;
+    --bar-none: #6b7280;
     color-scheme: dark;
   }
 }
@@ -79,6 +85,20 @@ label { display: inline-flex; gap: 6px; align-items: center; }
 .card .pts b { font-size: 1.35rem; font-variant-numeric: tabular-nums; }
 .card .pts span { font-size: 0.75rem; color: var(--muted); }
 .counts { display: flex; flex-wrap: wrap; gap: 4px; }
+.tot-over { color: var(--over); }
+.tot-under { color: var(--under); }
+
+/* Pick breakdown chart */
+.breakdown { display: grid; gap: 2px; margin-top: 4px; }
+.brow { display: grid; grid-template-columns: 88px 1fr 22px; align-items: center; gap: 8px; padding: 2px 0; border-radius: 4px; }
+.brow:hover { background: var(--surface-2); }
+.blabel { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+.btrack { display: block; height: 10px; }
+.bar { display: block; height: 100%; min-width: 0; border-radius: 0 4px 4px 0; }
+.bar.over { background: var(--bar-over); }
+.bar.under { background: var(--bar-under); }
+.bar.none { background: var(--bar-none); }
+.bnum { font-size: 0.8rem; text-align: right; font-variant-numeric: tabular-nums; }
 .empty { color: var(--muted); }
 
 /* Toolbar */
