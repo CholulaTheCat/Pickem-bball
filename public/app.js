@@ -148,20 +148,45 @@ function renderPlayerBar() {
     : '<li class="muted">No players yet.</li>';
 }
 
+const BREAKDOWN = [
+  ['LO', 'Lean over'], ['SO', 'Strong over'], ['BO', 'House over'],
+  ['LU', 'Lean under'], ['SU', 'Strong under'], ['BU', 'House under'], ['SA', 'Stay away'],
+];
+
+// One horizontal bar per pick type. All players share one scale so the cards compare.
+function breakdownChart(player, counts, max) {
+  return `<div class="breakdown" role="table" aria-label="${esc(player)}'s picks by type">
+    ${BREAKDOWN.map(([code, label]) => {
+      const n = counts[code];
+      const pct = max ? (n / max) * 100 : 0;
+      const tip = `${player}: ${PICKS[code].label} (${PICKS[code].pts}) — ${n} pick${n === 1 ? '' : 's'}`;
+      return `<div class="brow" role="row" title="${esc(tip)}">
+        <span class="blabel" role="rowheader">${label}</span>
+        <span class="btrack" role="cell"><span class="bar ${PICKS[code].dir || 'none'}" style="width:${pct}%"></span></span>
+        <span class="bnum" role="cell">${n}</span>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
 function renderScoreboard(st) {
+  const totals = Object.fromEntries(state.players.map((p) => [p, playerTotals(state.picks[p], st)]));
+  const max = Math.max(1, ...Object.values(totals).flatMap((t) => Object.values(t.counts)));
   $('#scoreboard').innerHTML = state.players.length ? state.players.map((p) => {
-    const t = playerTotals(state.picks[p], st);
-    const counts = PICK_ORDER.filter((c) => t.counts[c])
-      .map((c) => `<span class="chip ${PICKS[c].dir || ''}" title="${esc(PICKS[c].label)}">${esc(PICKS[c].short)} × ${t.counts[c]}</span>`)
-      .join('') || '<span class="empty small">No picks yet</span>';
+    const t = totals[p];
+    const overs = t.counts.LO + t.counts.SO + t.counts.BO;
+    const unders = t.counts.LU + t.counts.SU + t.counts.BU;
+    const points = state.preseason
+      ? `<div><b>${t.wagered}</b><span>pts in play</span></div>`
+      : `<div><b>${t.won}</b><span>clinched</span></div><div><b>${t.onPace}</b><span>on pace</span></div><div><b>${t.maxPossible}</b><span>max possible</span></div>`;
     return `<div class="card ${p === state.me ? 'me-card' : ''}">
       <h3><span>${esc(p)}</span><span class="muted small">${t.made}/${state.teams.length} picked</span></h3>
       <div class="pts">
-        <div><b>${t.won}</b><span>clinched</span></div>
-        <div><b>${t.onPace}</b><span>on pace</span></div>
-        <div><b>${t.maxPossible}</b><span>max possible</span></div>
+        <div><b class="tot-over">${overs}</b><span>overs</span></div>
+        <div><b class="tot-under">${unders}</b><span>unders</span></div>
+        ${points}
       </div>
-      <div class="counts">${counts}</div>
+      ${breakdownChart(p, t.counts, max)}
     </div>`;
   }).join('') : '<p class="muted">No players yet — add them at the bottom of the page.</p>';
 }
