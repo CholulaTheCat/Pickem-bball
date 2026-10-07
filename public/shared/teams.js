@@ -44,6 +44,43 @@ export const TEAMS = [
   { abbr: 'UTA', name: 'Utah Jazz',              conf: 'West', last: [22, 60], line: 38.5, espn: 'UTAH' },
 ];
 
+// Preseason outlooks (as of Oct 7, 2026), from offseason coverage on
+// NBA.com, ESPN, Hoops Rumors and Yahoo Sports. Edit freely.
+export const OUTLOOKS_AS_OF = 'Oct 7, 2026';
+const OUTLOOKS = {
+  ATL: 'Traded Trae Young to WAS at the deadline and went 27-14 with CJ McCollum. Now Jalen Johnson\'s team, built on defense: added Lu Dort and Aaron Wiggins from OKC, lost Jonathan Kuminga and Zaccharie Risacher.',
+  BOS: 'Jaylen Brown went to PHI for Paul George. Jayson Tatum is fully healthy after returning from his Achilles tear late last season; added Mitchell Robinson and Mike Conley.',
+  BKN: 'Still rebuilding. Drafted Mikel Brown Jr. at No. 6 and traded for Julius Randle. Line is +4.5 on last year\'s 20 wins.',
+  CHA: 'Big reshuffle: LaMelo Ball to MIN and Miles Bridges to PHX. Added Naz Reid, Dennis Schröder, Grayson Allen, Royce O\'Neale and Dorian Finney-Smith. Line is down 4.5 from last year\'s 44 wins.',
+  CHI: 'Added Norman Powell, Nic Claxton and Buddy Hield plus draft pick Caleb Wilson; lost Collin Sexton and Anfernee Simons. Priced right around last year\'s 31 wins.',
+  CLE: 'Beat DET in Game 7 of the 2nd round. Lost depth (Max Strus, Dean Wade, Dennis Schröder, Larry Nance Jr.); added Peyton Watson. Line is 4.5 under last year\'s 52 wins.',
+  DET: 'Last year\'s No. 1 seed at 60-22, but lost to CLE in the 2nd round. Line implies a 10-win regression: three-point shooting was a weakness, and Tobias Harris and Isaiah Stewart left; added John Collins and Isaiah Joe.',
+  IND: 'The biggest swing up (+25.5): Tyrese Haliburton is back after missing all of last season with a torn Achilles, plus a full year of Ivica Zubac (acquired at the deadline). Added Kelly Oubre Jr. and Larry Nance Jr.',
+  MIA: 'Traded Tyler Herro, Kel\'el Ware, Jaime Jaquez Jr. and three firsts to MIL for Giannis Antetokounmpo (plus Bobby Portis). Thinner roster, but a top-5 player.',
+  MIL: 'Post-Giannis rebuild. Got Tyler Herro, Kel\'el Ware, Jaime Jaquez Jr., Kasparas Jakučionis and three firsts. Line is 6.5 below last year\'s 32 wins.',
+  NYK: 'Defending champs: beat SAS 4-1 in the Finals, with Jalen Brunson as Finals MVP. Mostly running it back; lost Mitchell Robinson to BOS and added Andre Drummond.',
+  ORL: 'New coach Sean Sweeney. Banchero, Wagner and Bane all missed time last year (Wagner played just 34 games). Added Nikola Vučević. The line is basically a "stay healthy" bet.',
+  PHI: 'The splashiest summer: got Jaylen Brown for Paul George and signed LeBron James. Also added Anfernee Simons and Kentavious Caldwell-Pope. Line is +5.5 on last year\'s 45 wins.',
+  TOR: 'Brought back Kawhi Leonard (27.9 ppg last year) from LAC for Brandon Ingram, Gradey Dick and picks; the deal wasn\'t finalized until mid-September. Kawhi\'s health is the swing factor.',
+  WAS: 'Traded for Trae Young (then extended him) and Anthony Davis last season, and drafted AJ Dybantsa No. 1. The third-biggest swing up (+12.5), but AD has played 71 games in two years.',
+  DAL: 'Cooper Flagg (Rookie of the Year) plus Kyrie Irving back from his ACL tear; AD was traded at the deadline. New front office under Masai Ujiri and new coach Dusty May. Line is +8.5.',
+  DEN: 'Jokić, Murray and Gordon are intact. Added DeMar DeRozan; lost depth (Peyton Watson, Tim Hardaway Jr., Bruce Brown). Three straight early playoff exits; line is 4.5 under last year\'s 54 wins.',
+  GSW: 'Curry is healthy and there\'s a full year of Kristaps Porziņģis, but Jimmy Butler (knee) is out until around early 2027. Added Yaxel Lendeborg and Georges Niang.',
+  HOU: 'Fred VanVleet is back after missing all of last season (ACL), alongside Kevin Durant, Şengün and Amen Thompson. Added Marcus Smart and Bogdan Bogdanović. Line is 4.5 under last year\'s 52 wins.',
+  LAC: 'The biggest swing down (-11.5): Kawhi went to TOR, and Harden was already gone. Got Brandon Ingram and Gradey Dick for him, plus Rui Hachimura and Max Strus. The NBA is investigating the team\'s salary-cap handling of Kawhi\'s contract.',
+  LAL: 'LeBron left for PHI. Luka\'s team now, with new pieces Walker Kessler (sign-and-trade from UTA), Quentin Grimes, Collin Sexton and Sandro Mamukelashvili. Line is 6.5 below last year\'s 53 wins.',
+  MEM: 'Ja Morant traded to POR for Jerami Grant and Kris Murray. Drafted Cameron Boozer No. 3 to pair with Zach Edey; added Isaiah Stewart and D\'Angelo Russell. Line is +4.5.',
+  MIN: 'Traded for LaMelo Ball to pair with Anthony Edwards, and added Jonathan Kuminga. Lost Julius Randle (BKN) and Naz Reid (CHA). Line is basically flat on last year\'s 49 wins.',
+  NOP: 'Barely changed: re-signed DeAndre Jordan and little else. Hoping for internal growth and a healthy Zion off a 26-win year.',
+  OKC: 'Still the favorite at 62.5 off a 64-18 season. Lost wings Lu Dort, Aaron Wiggins and Isaiah Joe; added draft picks Aday Mara and Bennett Stirtz.',
+  PHX: 'Booker, Jalen Green (who was limited by hamstring issues last year) and Dillon Brooks. Swapped Grayson Allen and Royce O\'Neale for Miles Bridges, and added Luke Kennard. Line is 3.5 below last year\'s 45 wins.',
+  POR: 'Damian Lillard returns from his Achilles tear, and they traded for Ja Morant (Jerami Grant went to MEM). New coach Micah Nori has a crowded backcourt around All-Star Deni Avdija.',
+  SAC: 'Lowest line in the league. Rookie Darius Acuff Jr. (No. 7 pick) runs the offense; DeMar DeRozan and Russell Westbrook are gone, and Ben Simmons was added.',
+  SAS: 'Lost the Finals 4-1 to NYK. Wembanyama (reigning DPOY, early MVP favorite), Stephon Castle and Dylan Harper, plus veteran Tobias Harris. Highest Spurs win total in 30+ years.',
+  UTA: 'Drafted Darryn Peterson No. 2, and Jaren Jackson Jr. is healthy alongside Lauri Markkanen. Traded Walker Kessler to LAL for two firsts. Line is +16.5, the second-biggest jump.',
+};
+for (const t of TEAMS) t.outlook = OUTLOOKS[t.abbr] || '';
+
 export const TEAM_BY_ABBR = Object.fromEntries(TEAMS.map((t) => [t.abbr, t]));
 
 // ESPN abbreviation -> our abbreviation.

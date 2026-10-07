@@ -82,3 +82,27 @@ test('parses ESPN standings payload', () => {
     DET: { w: 60, l: 22 }, NYK: { w: 53, l: 29 }, GSW: { w: 37, l: 45 }, UTA: { w: 22, l: 60 },
   });
 });
+
+test('rejects standings labelled with a different season', () => {
+  const data = { children: [{ standings: { season: 2026, entries: [{ team: { abbreviation: 'DET' }, stats: [{ name: 'wins', value: 60 }, { name: 'losses', value: 22 }] }] } }] };
+  assert.deepEqual(parseStandings(data, '2027'), {});
+  assert.deepEqual(parseStandings(data, '2026'), { DET: { w: 60, l: 22 } });
+});
+
+test('standings endpoint skips ESPN before tip-off', async () => {
+  const { default: handler } = await import('../api/standings.js');
+  const realFetch = globalThis.fetch;
+  let called = false;
+  globalThis.fetch = async () => { called = true; throw new Error('should not fetch'); };
+  process.env.LOCK_AT = new Date(Date.now() + 86400000).toISOString();
+  const res = { headers: {}, setHeader(k, v) { this.headers[k] = v; }, end(b) { this.body = JSON.parse(b); } };
+  try {
+    await handler({ query: {} }, res);
+  } finally {
+    globalThis.fetch = realFetch;
+    delete process.env.LOCK_AT;
+  }
+  assert.equal(called, false);
+  assert.equal(res.body.preseason, true);
+  assert.deepEqual(res.body.records, {});
+});

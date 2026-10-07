@@ -1,14 +1,13 @@
 import { TEAM_BY_ABBR } from '../public/shared/teams.js';
 import { PICKS } from '../public/shared/scoring.js';
 import { getPlayers, getPick, setPick } from '../lib/store.js';
-import { checkPasscode, isLocked, readBody, send } from '../lib/http.js';
+import { isLocked, readBody, send } from '../lib/http.js';
 
 const NOTE_MAX = 280;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
-  const { passcode, player, team, pick, note } = readBody(req);
-  if (!checkPasscode(passcode)) return send(res, 401, { error: 'Wrong passcode' });
+  const { player, team, pick, note } = readBody(req);
   if (!TEAM_BY_ABBR[team]) return send(res, 400, { error: 'Unknown team' });
   if (!(await getPlayers()).includes(player)) return send(res, 400, { error: 'Unknown player' });
 
