@@ -240,7 +240,7 @@ function renderCards(st, rows) {
         <div class="tline"><span>Line</span><b>${t.line}</b></div>
       </header>
       ${s.state === 'pending' && state.preseason ? '' : `<div class="tstatus"><span class="status ${s.state}">${statusLabel(s)}</span>${live}</div>`}
-      ${t.outlook ? `<details class="outlook"><summary>Outlook</summary><p>${esc(t.outlook)}</p></details>` : ''}
+      ${t.outlook ? `<p class="outlook">${esc(t.outlook)}</p>` : ''}
       ${mineUi}
       ${others ? `<div class="others">${others}</div>` : ''}
     </article>`;

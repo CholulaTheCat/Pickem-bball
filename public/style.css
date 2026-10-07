@@ -189,11 +189,7 @@ dialog p { white-space: pre-wrap; }
 .tline span { display: block; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
 .tline b { font-size: 1.6rem; font-variant-numeric: tabular-nums; }
 .tstatus { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; font-size: 0.85rem; font-variant-numeric: tabular-nums; color: var(--muted); }
-.outlook summary { cursor: pointer; font-size: 0.85rem; color: var(--muted); font-weight: 600; list-style: none; }
-.outlook summary::-webkit-details-marker { display: none; }
-.outlook summary::after { content: " ▾"; }
-.outlook[open] summary::after { content: " ▴"; }
-.outlook p { margin: 6px 0 0; font-size: 0.9rem; }
+.outlook { margin: 0; font-size: 0.9rem; line-height: 1.45; padding: 8px 10px; background: var(--surface-2); border-radius: 8px; }
 
 .pickgrid { display: grid; grid-template-columns: auto 1fr 1fr 1fr; gap: 6px; align-items: stretch; }
 .rowlabel { align-self: center; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; padding-right: 2px; }
